@@ -1,0 +1,30 @@
+{
+	"name": "david63/friendsandfoes",
+	"type": "phpbb-extension",
+	"description": "Adds an Admin option to display the friends & foes of each member (where set)",
+	"homepage": "",
+	"version": "1.0.0",
+	"time": "2014-05-12",
+	"license": "GPL-2.0",
+	"authors": [{
+			"name": "David Wood",
+			"username": "david63",
+			"email": "",
+			"homepage": "",
+			"role": "Lead Developer"
+		}],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"extra": {
+		"display-name": "Friends and Foes (done)",
+		"soft-require": {
+         "phpbb/phpbb": "3.1.*@dev"
+      },
+		"version-check": {
+		 	"host": "mywebworld.org.uk",
+			"directory": "/extensions",
+			"filename": "friendsandfoes_versions.json"
+		}
+	}
+}
