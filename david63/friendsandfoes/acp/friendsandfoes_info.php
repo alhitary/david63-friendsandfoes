@@ -16,7 +16,6 @@ class friendsandfoes_info
 		return array(
 			'filename'	=> '\david63\friendsandfoes\acp\friendsandfoes_module',
 			'title'		=> 'FRIENDS_AND_FOES',
-			'version'	=> '1.0.0',
 			'modes'		=> array(
 				'main'		=> array('title' => 'FRIENDS_AND_FOES', 'auth' => 'ext_david63/friendsandfoes && acl_a_user', 'cat' => array('ACP_CAT_USERS')),
 			),

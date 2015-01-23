@@ -37,7 +37,24 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'FRIENDS_AND_FOES' => 'Friends and foes',
-));
+	'ACP_USER_UTILS'	=> 'User utilities',
+	'FRIENDS_AND_FOES'	=> 'Friends and foes',
 
-?>
+	'ALL'						=> 'All',
+
+	'FILTER_BY'					=> 'Filter by',
+	'FILTER_USERNAME'			=> 'Username',
+	'FOE'						=> 'Made a foe of',
+	'FRIEND'					=> 'Made friends with',
+	'FRIENDS_AND_FOES'			=> 'Friends & Foes',
+	'FRIENDS_AND_FOES_EXPLAIN'	=> 'This gives you a list of the friends & foes of each member (where set).',
+
+	'NO_FF_DATA'				=> 'There is no Friends and Foes data to display',
+
+	'SELECT_CHAR'				=> 'Select character',
+	'SORT_FOE'					=> 'Foes',
+	'SORT_FRIEND'				=> 'Friends',
+	'SORT_USERNAME'				=> 'Username',
+
+	'YES'						=> 'Yes',
+));
