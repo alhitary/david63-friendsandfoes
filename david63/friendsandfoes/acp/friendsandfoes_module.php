@@ -90,6 +90,7 @@ class friendsandfoes_module
 			'WHERE'		=> 'u.user_id = z.user_id' . $filter_by,
 			'ORDER_BY'	=> ($sort_key == '') ? 'u.username_clean' : $order_ary[$sort_key],
 		));
+
 		$result = $this->db->sql_query_limit($sql, $this->config['topics_per_page'], $start);
 
 		while ($row = $this->db->sql_fetchrow($result))
@@ -105,6 +106,7 @@ class friendsandfoes_module
 				$sql = 'SELECT user_id, username_clean
 					FROM ' . USERS_TABLE . '
 					WHERE user_id = ' . $rowdata['zebra_id'];
+
 				$result = $this->db->sql_query($sql);
 				$row	= $this->db->sql_fetchrow($result);
 
@@ -123,6 +125,21 @@ class friendsandfoes_module
 
 		gen_sort_selects($limit_days, $sort_by_text, $sort_days, $sort_key, $sd, $s_limit_days, $s_sort_key, $s_sort_dir, $u_sort_param);
 
+		// Are there any friends & foes?
+		$sql = $this->db->sql_build_query('SELECT', array(
+			'SELECT'	=> 'COUNT(z.user_id) AS total_users',
+			'FROM'		=> array(
+				USERS_TABLE	=> 'u',
+				ZEBRA_TABLE	=> 'z',
+			),
+			'WHERE'		=> 'u.user_id = z.user_id',
+		));
+
+		$result			= $this->db->sql_query($sql);
+		$fandf_count	= (int) $this->db->sql_fetchfield('total_users');
+
+		$this->db->sql_freeresult($result);
+
 		// Get total user count for pagination
 		$sql = $this->db->sql_build_query('SELECT', array(
 			'SELECT'	=> 'COUNT(z.user_id) AS total_users',
@@ -138,12 +155,13 @@ class friendsandfoes_module
 
 		$this->db->sql_freeresult($result);
 
+		$action = $this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd . '&amp;start=' . $start;
+
+		$link = ($fandf_count) ? adm_back_link($this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd . '&amp;start=' . $start) : '';
 		if ($user_count == 0)
 		{
-			trigger_error($this->user->lang['NO_FF_DATA']);
+			trigger_error($this->user->lang('NO_FF_DATA') . $link);
 		}
-
- 		$action = $this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd . '&amp;fc=' . $fc . '&amp;start=' . $start;
 
 		$pagination = $this->phpbb_container->get('pagination');
 		$pagination->generate_template_pagination($action, 'pagination', 'start', $user_count, $this->config['topics_per_page'], $start);
