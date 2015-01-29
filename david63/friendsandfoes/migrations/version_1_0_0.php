@@ -13,33 +13,23 @@ class version_1_0_0 extends \phpbb\db\migration\migration
 {
 	public function update_data()
 	{
+		$update_data = array();
+
+		$update_data[] = array('config.add', array('version_friendsandfoes', '1.0.0'));
+
 		if ($this->module_check())
 		{
-			return array(
-				array('config.add', array('version_friendsandfoes', '1.0.0')),
-
-				array('module.add', array('acp', 'ACP_CAT_USERGROUP', 'ACP_USER_UTILS')),
-				array('module.add', array(
-					'acp', 'ACP_USER_UTILS', array(
-						'module_basename'	=> '\david63\friendsandfoes\acp\friendsandfoes_module',
-						'modes'				=> array('main'),
-					),
-				)),
-	   		);
+			$update_data[] = array('module.add', array('acp', 'ACP_CAT_USERGROUP', 'ACP_USER_UTILS'));
 		}
-		else
-		{
-			return array(
-				array('config.add', array('version_friendsandfoes', '1.0.0')),
 
-				array('module.add', array(
-					'acp', 'ACP_USER_UTILS', array(
-				   		'module_basename'	=> '\david63\friendsandfoes\acp\friendsandfoes_module',
-						'modes'				=> array('main'),
-					),
-				)),
-	   		);
-		}
+		$update_data[] = array('module.add', array(
+			'acp', 'ACP_USER_UTILS', array(
+				'module_basename'	=> '\david63\friendsandfoes\acp\friendsandfoes_module',
+				'modes'				=> array('main'),
+			),
+		));
+
+		return $update_data;
 	}
 
 	protected function module_check()
