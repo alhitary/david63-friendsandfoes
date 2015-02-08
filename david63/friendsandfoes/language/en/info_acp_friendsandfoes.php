@@ -55,5 +55,7 @@ $lang = array_merge($lang, array(
 	'SORT_FRIEND'				=> 'Friends',
 	'SORT_USERNAME'				=> 'Username',
 
+	'TOTAL_USERS'				=> 'User count : %1$s',
+
 	'YES'						=> 'Yes',
 ));

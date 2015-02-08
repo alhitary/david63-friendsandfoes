@@ -155,7 +155,7 @@ class friendsandfoes_module
 
 		$this->db->sql_freeresult($result);
 
-		$action = $this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd . '&amp;start=' . $start;
+		$action = $this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd;
 
 		$link = ($fandf_count) ? adm_back_link($this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd . '&amp;start=' . $start) : '';
 		if ($user_count == 0)
@@ -164,11 +164,13 @@ class friendsandfoes_module
 		}
 
 		$pagination = $this->phpbb_container->get('pagination');
+		$start = $pagination->validate_start($start, $this->config['topics_per_page'], $user_count);
 		$pagination->generate_template_pagination($action, 'pagination', 'start', $user_count, $this->config['topics_per_page'], $start);
 
 		$this->template->assign_vars(array(
 			'S_SORT_DIR'	=> $s_sort_dir,
 			'S_SORT_KEY'	=> $s_sort_key,
+			'TOTAL_USERS'	=> $this->user->lang('TOTAL_USERS', (int) $user_count),
 
 			'U_ACTION'		=> $action,
 		));
