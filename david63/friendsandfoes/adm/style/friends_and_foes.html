@@ -32,37 +32,13 @@
 	<tr class="row1">
 		<td><strong>{L_FILTER_USERNAME}</strong></td>
 		<td>
-			<a href="{U_ACTION}&amp;fc=">{L_ALL}</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=a">A</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=b">B</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=c">C</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=d">D</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=e">E</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=f">F</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=g">G</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=h">H</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=i">I</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=j">J</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=k">K</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=l">L</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=m">M</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=n">N</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=o">O</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=p">P</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=q">Q</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=r">R</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=s">S</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=t">T</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=u">U</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=v">V</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=w">W</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=x">X</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=y">Y</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=z">Z</a>&nbsp;
-			<a href="{U_ACTION}&amp;fc=other">#</a>
+			<!-- BEGIN first_char -->
+				<a href="{first_char.U_SORT}">{first_char.DESC}</a>&nbsp;
+			<!-- END first_char -->
 		</td>
 	</tr>
 </tbody>
+
 </table>
 
 <fieldset class="display-options">
@@ -81,11 +57,11 @@
 
 <tbody>
 	<!-- BEGIN friends_foes -->
-	<!-- IF friends_foes.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
-		<td>{friends_foes.USERNAME}</td>
-		<td>{friends_foes.FRIEND}</td>
-		<td><strong>{friends_foes.FOE}</td>
-	</tr>
+		<!-- IF friends_foes.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+			<td>{friends_foes.USERNAME}</td>
+			<td>{friends_foes.FRIEND}</td>
+			<td>{friends_foes.FOE}</td>
+		</tr>
 	<!-- END friends_foes -->
 </tbody>
 
@@ -100,7 +76,6 @@
 		&bull; {PAGE_NUMBER}
 	<!-- ENDIF -->
 </div>
-
 
 </form>
 

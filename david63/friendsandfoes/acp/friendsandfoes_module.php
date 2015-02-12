@@ -31,7 +31,7 @@ class friendsandfoes_module
 
 	function main($id, $mode)
 	{
-		global $db, $user, $template, $request, $phpbb_container, $config;
+		global $db, $user, $template, $request, $phpbb_container, $config, $phpbb_root_path, $phpEx;
 
 		$this->config			= $config;
 		$this->db				= $db;
@@ -163,9 +163,26 @@ class friendsandfoes_module
 			trigger_error($this->user->lang('NO_FF_DATA') . $link);
 		}
 
-		$pagination = $this->phpbb_container->get('pagination');
-		$start = $pagination->validate_start($start, $this->config['topics_per_page'], $user_count);
+		$pagination	= $this->phpbb_container->get('pagination');
+		$start		= $pagination->validate_start($start, $this->config['topics_per_page'], $user_count);
 		$pagination->generate_template_pagination($action, 'pagination', 'start', $user_count, $this->config['topics_per_page'], $start);
+
+		$first_characters		= array();
+		$first_characters['']	= $this->user->lang['ALL'];
+		for ($i = 97; $i < 123; $i++)
+		{
+			$first_characters[chr($i)] = chr($i - 32);
+		}
+		$first_characters['other'] = $this->user->lang['OTHER'];
+
+		foreach ($first_characters as $char => $desc)
+		{
+			$template->assign_block_vars('first_char', array(
+				'DESC'			=> $desc,
+				'VALUE'			=> $char,
+				'U_SORT'		=> $action . '&amp;fc=' . $char,
+			));
+		}
 
 		$this->template->assign_vars(array(
 			'S_SORT_DIR'	=> $s_sort_dir,

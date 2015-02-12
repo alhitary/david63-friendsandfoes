@@ -50,6 +50,8 @@ $lang = array_merge($lang, array(
 
 	'NO_FF_DATA'				=> 'There are no friends and foes to display',
 
+	'OTHER'						=> 'Other',
+
 	'SELECT_CHAR'				=> 'Select character',
 	'SORT_FOE'					=> 'Foes',
 	'SORT_FRIEND'				=> 'Friends',
