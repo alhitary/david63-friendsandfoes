@@ -103,7 +103,7 @@ class friendsandfoes_module
 		{
 			foreach ($rowset as $rowdata)
 			{
-				$sql = 'SELECT user_id, username_clean
+				$sql = 'SELECT user_id, username
 					FROM ' . USERS_TABLE . '
 					WHERE user_id = ' . $rowdata['zebra_id'];
 
@@ -111,9 +111,9 @@ class friendsandfoes_module
 				$row	= $this->db->sql_fetchrow($result);
 
 				$this->template->assign_block_vars('friends_foes', array(
-					'FOE'		=> ($rowdata['foe'] == 0) ? '' : get_username_string('full', $row['user_id'], $row['username_clean'], 'CC3300'),
-					'FRIEND'	=> ($rowdata['friend'] == 0) ? '' : get_username_string('full', $row['user_id'], $row['username_clean'], '006600'),
-					'USERNAME'	=> get_username_string('full', $rowdata['user_id'], $rowdata['username_clean'], $rowdata['user_colour']),
+					'FOE'		=> ($rowdata['foe'] == 0) ? '' : get_username_string('full', $row['user_id'], $row['username'], 'CC3300'),
+					'FRIEND'	=> ($rowdata['friend'] == 0) ? '' : get_username_string('full', $row['user_id'], $row['username'], '006600'),
+					'USERNAME'	=> get_username_string('full', $rowdata['user_id'], $rowdata['username'], $rowdata['user_colour']),
 		   		));
 			}
 		}
@@ -193,5 +193,3 @@ class friendsandfoes_module
 		));
 	}
 }
-
-?>
