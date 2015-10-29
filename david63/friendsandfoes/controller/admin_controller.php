@@ -184,7 +184,7 @@ class admin_controller implements admin_interface
 
 		$first_characters		= array();
 		$first_characters['']	= $this->user->lang('ALL');
-		for ($i = 97; $i < 123; $i++)
+		for ($i = ord('a'); $i <= ord('z'); $i++)
 		{
 			$first_characters[chr($i)] = chr($i - 32);
 		}
