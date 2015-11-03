@@ -37,34 +37,20 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'ACP_USER_UTILS'			=> 'User utilities',
-
-	'ALL'						=> 'All',
-
-	'FF_SORT'					=> 'Sort',
-	'FF_CLEAR_FILTER'			=> 'Clear filters',
-	'FILTER_BY'					=> 'Filter by',
-	'FILTER_USERNAME'			=> 'Username',
-	'FOE'						=> 'Made a foe of',
-	'FRIEND'					=> 'Made friends with',
-	'FRIENDS_AND_FOES'			=> 'Friends & foes',
-	'FRIENDS_AND_FOES_EXPLAIN'	=> 'This gives you a list of the friends & foes of each member (where set).',
-
-	'NO_FF_DATA'				=> 'There are no friends and foes to display',
-
-	'OTHER'						=> 'Other',
-
-	'SELECT_CHAR'				=> 'Select character',
-	'SORT_FOE'					=> 'Foes',
-	'SORT_FRIEND'				=> 'Friends',
-	'SORT_USERNAME'				=> 'Username',
-
-	'TOTAL_USERS'				=> 'Freinds & Foes count : <strong>%1$s</strong>',
-
-	'YES'						=> 'Yes',
-
-	// Translators - set these to whatever is most appropriate in your language
-	// These are used to populate the filter keys
-	'START_CHARACTER'		=> 'A',
-	'END_CHARACTER'			=> 'Z',
+	'ACP_USER_UTILS'			=> 'Narzędzia użytkownika',
+	'ALL'						=> 'Wszyscy',
+	'FILTER_BY'					=> 'Sortuj wg',
+	'FILTER_USERNAME'			=> 'Nazwa użytkownika',
+	'FOE'						=> 'Nawiązana wrogość z',
+	'FRIEND'					=> 'Nawiązana przyjaźń z',
+	'FRIENDS_AND_FOES'			=> 'Przyjaciele i wrogowie',
+	'FRIENDS_AND_FOES_EXPLAIN'	=> 'Lista przyjaciół i wrogów każdego z użytkowników.',
+	'NO_FF_DATA'				=> 'Brak użytkowników spełniających dane kryteria.',
+	'OTHER'						=> 'Inni',
+	'SELECT_CHAR'				=> 'Wybierz literę',
+	'SORT_FOE'					=> 'Wrogowie',
+	'SORT_FRIEND'				=> 'Przyjaciele',
+	'SORT_USERNAME'				=> 'Nazwa użytkownika',
+	'TOTAL_USERS'				=> 'Liczba użytkowników: %1$s',
+	'YES'						=> 'Tak',
 ));

@@ -11,6 +11,8 @@ namespace david63\friendsandfoes\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use david63\friendsandfoes\ext;
+
 /**
 * Admin controller
 */
@@ -31,8 +33,8 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var ContainerInterface */
-	protected $container;
+	/** @var \phpbb\pagination */
+	protected $pagination;
 
 	/** @var string Custom form action */
 	protected $u_action;
@@ -45,19 +47,19 @@ class admin_controller implements admin_interface
 	* @param \phpbb\request\request				$request	Request object
 	* @param \phpbb\template\template			$template	Template object
 	* @param \phpbb\user						$user		User object
-	* @param ContainerInterface					$container	Service container interface
+	* @param \phpbb\pagination					$pagination
 	*
 	* @return \phpbb\boardrules\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, ContainerInterface $container)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, \phpbb\pagination $pagination)
 	{
 		$this->config		= $config;
 		$this->db  			= $db;
 		$this->request		= $request;
 		$this->template		= $template;
 		$this->user			= $user;
-		$this->container	= $container;
+		$this->pagination	= $pagination;
 	}
 
 	/**
@@ -70,10 +72,18 @@ class admin_controller implements admin_interface
 	{
 		// Start initial var setup
 		$action			= $this->request->variable('action', '');
-		$start			= $this->request->variable('start', 0);
+		$clear_filters	= $this->request->variable('clear_filters', '');
 		$fc				= $this->request->variable('fc', '');
 		$sort_key		= $this->request->variable('sk', 'u');
 		$sd = $sort_dir	= $this->request->variable('sd', 'a');
+		$start			= $this->request->variable('start', 0);
+
+		if ($clear_filters)
+		{
+			$fc				= '';
+			$sd = $sort_dir	= 'a';
+			$sort_key		= 'u';
+		}
 
 		$sort_dir		= ($sort_dir == 'd') ? ' DESC' : ' ASC';
 
@@ -86,7 +96,7 @@ class admin_controller implements admin_interface
 		$filter_by = '';
 		if ($fc == 'other')
 		{
-			for ($i = 97; $i < 123; $i++)
+			for ($i = ord($this->user->lang('START_CHARACTER')); $i	<= ord($this->user->lang('END_CHARACTER')); $i++)
 			{
 				$filter_by .= ' AND u.username_clean ' . $this->db->sql_not_like_expression(utf8_clean_string(chr($i)) . $this->db->get_any_char());
 			}
@@ -135,8 +145,8 @@ class admin_controller implements admin_interface
 		$this->db->sql_freeresult($result);
 
 		$sort_by_text	= array('u' => $this->user->lang('SORT_USERNAME'), 'f' => $this->user->lang('SORT_FRIEND'), 'o' => $this->user->lang('SORT_FOE'));
-		$limit_days		= array();
-		$s_sort_key		= $s_limit_days = $s_sort_dir = $u_sort_param = '';
+		$limit_days	= array();
+		$s_sort_key	= $s_limit_days = $s_sort_dir = $u_sort_param = '';
 
 		gen_sort_selects($limit_days, $sort_by_text, $sort_days, $sort_key, $sd, $s_limit_days, $s_sort_key, $s_sort_dir, $u_sort_param);
 
@@ -178,32 +188,32 @@ class admin_controller implements admin_interface
 			trigger_error($this->user->lang('NO_FF_DATA') . $link);
 		}
 
-		$pagination	= $this->container->get('pagination');
-		$start		= $pagination->validate_start($start, $this->config['topics_per_page'], $user_count);
-		$pagination->generate_template_pagination($action, 'pagination', 'start', $user_count, $this->config['topics_per_page'], $start);
+		$start = $this->pagination->validate_start($start, $this->config['topics_per_page'], $user_count);
+		$this->pagination->generate_template_pagination($action . "&ampfc=$fc", 'pagination', 'start', $user_count, $this->config['topics_per_page'], $start);
 
 		$first_characters		= array();
 		$first_characters['']	= $this->user->lang('ALL');
-		for ($i = ord('a'); $i <= ord('z'); $i++)
+		for ($i = ord($this->user->lang('START_CHARACTER')); $i	<= ord($this->user->lang('END_CHARACTER')); $i++)
 		{
-			$first_characters[chr($i)] = chr($i - 32);
+			$first_characters[chr($i)] = chr($i);
 		}
 		$first_characters['other'] = $this->user->lang('OTHER');
 
 		foreach ($first_characters as $char => $desc)
 		{
 			$this->template->assign_block_vars('first_char', array(
-				'DESC'			=> $desc,
-				'U_SORT'		=> $action . '&amp;fc=' . $char,
+				'DESC'		=> $desc,
+				'U_SORT'	=> $action . '&amp;fc=' . $char,
 			));
 		}
 
 		$this->template->assign_vars(array(
-			'S_SORT_DIR'	=> $s_sort_dir,
-			'S_SORT_KEY'	=> $s_sort_key,
-			'TOTAL_USERS'	=> $this->user->lang('TOTAL_USERS', (int) $user_count),
+			'FRIENDS_AND_FOES_VERSION'	=> ext::FRIENDS_AND_FOES_VERSION,
+			'S_SORT_DIR'				=> $s_sort_dir,
+			'S_SORT_KEY'				=> $s_sort_key,
+			'TOTAL_USERS'				=> $this->user->lang('TOTAL_USERS', (int) $user_count),
 
-			'U_ACTION'		=> $action,
+			'U_ACTION'					=> $action . "&ampfc=$fc",
 		));
 	}
 

@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Adds an Admin option to display the friends & foes of each member (where set)",
 	"homepage": "",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"time": "2014-05-12",
 	"license": "GPL-2.0",
 	"authors": [{
