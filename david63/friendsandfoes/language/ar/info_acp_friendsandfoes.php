@@ -42,12 +42,14 @@ $lang = array_merge($lang, array(
 
 	'ALL'						=> 'الجميع',
 
+	'FF_SORT'					=> 'ترتيب',
+	'FF_CLEAR_FILTER'			=> 'الترتيب الإفتراضي',
 	'FILTER_BY'					=> 'الترتيب بواسطة',
 	'FILTER_USERNAME'			=> 'إسم المستخدم',
 	'FOE'						=> 'اضاف إلى قائمة الخصوم',
 	'FRIEND'					=> 'اضاف إلى قائمة الأصدقاء',
 	'FRIENDS_AND_FOES'			=> 'الأصدقاء و الخصوم',
-	'FRIENDS_AND_FOES_EXPLAIN'	=> 'في هذه الصفحة تجد قائمة بالأصدقاء والخصوم لكل عضو في منتداك.',
+	'FRIENDS_AND_FOES_EXPLAIN'	=> 'من هنا تستطيع أن تحصل على قائمة الأصدقاء والخصوم لكل عضو في منتداك.',
 
 	'NO_FF_DATA'				=> 'لا يوجد أصدقاء و خصوم لعرضهم',
 
@@ -58,7 +60,12 @@ $lang = array_merge($lang, array(
 	'SORT_FRIEND'				=> 'الأصدقاء',
 	'SORT_USERNAME'				=> 'إسم المستخدم',
 
-	'TOTAL_USERS'				=> 'عدد الأعضاء : %1$s',
+	'TOTAL_USERS'				=> 'عدد الأصدقاء و الخصوم : <strong>%1$s</strong>',
 
 	'YES'						=> 'نعم',
+
+	// Translators - set these to whatever is most appropriate in your language
+	// These are used to populate the filter keys
+	'START_CHARACTER'		=> 'A',
+	'END_CHARACTER'			=> 'Z',
 ));
